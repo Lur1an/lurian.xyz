@@ -7,30 +7,35 @@
 
 	import { AppShell, AppBar, LightSwitch, AppRailTile, Avatar } from '@skeletonlabs/skeleton';
 	import NavBar from '$lib/components/NavBar.svelte';
+	import Icon from 'svelte-awesome/components/Icon.svelte';
+	import { faCodeBranch } from '@fortawesome/free-solid-svg-icons';
+	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 </script>
 
 <!-- App Shell -->
 <AppShell gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end">
 	<svelte:fragment slot="header">
-		<!-- Top Bar -->
 		<AppBar>
 			<svelte:fragment slot="lead">
-				<Avatar src="/lurian_logo.png" class="mr-4"/>
+				<Avatar src="/lurian_logo.png" class="mr-4" />
 				<strong class="text-xl">lurian.dev</strong>
 			</svelte:fragment>
-			<NavBar />
+			<svelte:fragment slot="default">
+				<NavBar />
+			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<a class="btn-icon btn-icon-sm hover:variant-soft-primary" href="github.com">
-					<i class="fa-brands fa-discord text-lg" />
-				</a>
-				<LightSwitch />
+				<ul class="flex items-center space-x-8">
+					<li>
+						<a class="" href="https://www.github.com/lur1an">
+							<Icon data={faGithub} scale={2} />
+						</a>
+					</li>
+					<li>
+						<LightSwitch class="scale-[1.5]" />
+					</li>
+				</ul>
 			</svelte:fragment>
 		</AppBar>
 	</svelte:fragment>
-	<svelte:fragment slot="sidebarLeft">
-		<!-- Insert the list: -->
-		<!-- --- -->
-	</svelte:fragment>
-	<!-- Page Route Content -->
 	<slot />
 </AppShell>

@@ -13,7 +13,7 @@
 	$: classesActive = (href: string) => (href === $page.url.pathname ? 'variant-ghost-primary' : '');
 </script>
 
-<nav class="flex flex-row list-nav">
+<nav class="flex flex-row list-nav justify-center">
 	{#each links as link}
 		<a href={link.href} class={classesActive(link.href)}>
             <Icon data={link.icon} class="mr-2" />
