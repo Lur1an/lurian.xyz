@@ -1,13 +1,16 @@
+import { formatDateString } from '$lib/util';
 import { error } from '@sveltejs/kit';
 
 export async function load({ params }) {
 	try {
 		const slug = params.slug;
 		const post = await import(`/src/posts/${slug}.md`);
-		return {
+		const data =  {
 			content: post.default,
 			metadata: post.metadata
 		};
+        data.metadata.date = formatDateString(data.metadata.date);
+        return data
 	} catch (e) {
 		throw error(404, 'Post not found');
 	}

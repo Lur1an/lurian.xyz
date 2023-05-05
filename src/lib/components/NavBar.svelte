@@ -10,7 +10,14 @@
 		{ href: '/about', text: 'About', icon: faLightbulb }
 	];
 
-	$: classesActive = (href: string) => (href === $page.url.pathname ? 'variant-ghost-primary' : '');
+	$: classesActive = (href: string) => {
+        if (href !== '/') {
+            return ($page.url.pathname.includes(href) ? 'variant-ghost-primary' : '');
+        } else {
+            return ($page.url.pathname === href ? 'variant-ghost-primary' : '');
+        }
+    }
+
 </script>
 
 <nav class="flex flex-row list-nav justify-center">
