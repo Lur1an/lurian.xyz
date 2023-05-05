@@ -24,7 +24,7 @@
 				<NavBar />
 			</svelte:fragment>
 			<svelte:fragment slot="trail">
-				<ul class="flex items-center space-x-8">
+				<ul class="flex items-center space-x-8 mr-4">
 					<li>
 						<a class="" href="https://www.github.com/lur1an">
 							<Icon data={faGithub} scale={2} />
