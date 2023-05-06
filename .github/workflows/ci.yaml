@@ -22,14 +22,16 @@ jobs:
           push: true
           tags: ${{ secrets.DOCKERHUB_TARGET }}
 
-    deploy-ec2:
-        runs-on: ubuntu-latest
-        uses: appleboy/ssh-action@v0.1.10
-            with:
-                host: ${{ secrets.SSH_HOST }}
-                username: ${{ secrets.SSH_USERNAME }}
-                password: ${{ secrets.SSH_PASSWORD }}
-                port: ${{ secrets.SSH_PORT }}
-                script: |
-                    docker pull ${{ secrets.DOCKERHUB_TARGET }}
-                    docker run -d -p 80:3000 ${{ secrets.DOCKERHUB_TARGET }}
+  deploy-ec2:
+    needs: docker-build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: appleboy/ssh-action@v0.1.10
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          password: ${{ secrets.SSH_PASSWORD }}
+          port: ${{ secrets.SSH_PORT }}
+          script: |
+              docker pull ${{ secrets.DOCKERHUB_TARGET }}
+              docker run -d -p 80:3000 ${{ secrets.DOCKERHUB_TARGET }}
