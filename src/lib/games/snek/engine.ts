@@ -33,19 +33,19 @@ function adjacentCoords(
 ): { x: number; y: number } {
 	let { x, y } = coords;
 	switch (direction) {
-		case Direction.UP:
+		case Direction.LEFT:
 			y = coords.y - 1;
 			y = y >= 0 ? y : height - 1;
 			break;
-		case Direction.DOWN:
+		case Direction.RIGHT:
 			y = coords.y + 1;
 			y = y < height ? y : 0;
 			break;
-		case Direction.LEFT:
+		case Direction.UP:
 			x = coords.x - 1;
 			x = x >= 0 ? x : width - 1;
 			break;
-		case Direction.RIGHT:
+		case Direction.DOWN:
 			x = coords.x + 1;
 			x = x < width ? x : 0;
 			break;
