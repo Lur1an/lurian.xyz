@@ -131,20 +131,18 @@ class GameEngine {
 		let currentNode: SnekNode | null = this.snek.head;
         let moveX = x;
         let moveY = y;
-		let oldX = currentNode.x;
-		let oldY = currentNode.y;
-        let iterations = 0;
 		while (currentNode !== null) {
-            iterations++;
+            let oldX = currentNode.x;
+            let oldY = currentNode.y;
 			currentNode.x = moveX;
 			currentNode.y = moveY;
-			this.updateBoard(moveX, moveY, BoardChunk.SNEK);
+			this.updateBoard(currentNode.x, currentNode.y, BoardChunk.SNEK);
             // Move the next part of the snek to the position of the previous part
             currentNode = currentNode.next;
 			moveX = oldX;
 			moveY = oldY;
 		}
-		this.updateBoard(x, y, BoardChunk.EMPTY);
+		this.updateBoard(moveX, moveY, BoardChunk.EMPTY);
 	}
 
 	spawnFood(): void {
