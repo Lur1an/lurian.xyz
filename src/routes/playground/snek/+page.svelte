@@ -1,5 +1,6 @@
 <script>
-	import Snek from '$lib/components/games/Snek.svelte';
+	import Snek from "$lib/games/snek/Snek.svelte";
+
 </script>
 
 <div class="container h-full mx-auto flex justify-center items-center">
