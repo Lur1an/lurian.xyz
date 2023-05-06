@@ -36,6 +36,7 @@
 		}
 	}
 
+    
 	function movement(
 		coordinates: { x: number; y: number },
 		direction: Direction,
