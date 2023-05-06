@@ -138,11 +138,11 @@ class GameEngine {
             iterations++;
 			currentNode.x = moveX;
 			currentNode.y = moveY;
-			this.updateBoard(x, y, BoardChunk.SNEK);
+			this.updateBoard(moveX, moveY, BoardChunk.SNEK);
             // Move the next part of the snek to the position of the previous part
-			x = oldX;
-			y = oldY;
-			currentNode = currentNode.next;
+            currentNode = currentNode.next;
+			moveX = oldX;
+			moveY = oldY;
 		}
 		this.updateBoard(x, y, BoardChunk.EMPTY);
 	}
