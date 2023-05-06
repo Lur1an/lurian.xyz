@@ -111,8 +111,8 @@ class GameEngine {
 
 	// Updates both internal board and updates subscriber for updates
 	updateBoard(x: number, y: number, chunk: BoardChunk) {
-		this.board[y][x] = chunk;
-		this.boardHooks[y][x].set(chunk);
+		this.board[x][y] = chunk;
+		this.boardHooks[x][y].set(chunk);
 	}
 
 	height(): number {
@@ -127,19 +127,24 @@ class GameEngine {
 		console.info('Game over');
 	}
 
-	move(moveX: number, moveY: number): void {
+	move(x: number, y: number): void {
 		let currentNode: SnekNode | null = this.snek.head;
+        let moveX = x;
+        let moveY = y;
 		let oldX = currentNode.x;
 		let oldY = currentNode.y;
-		while (currentNode != null) {
+        let iterations = 0;
+		while (currentNode !== null) {
+            iterations++;
 			currentNode.x = moveX;
 			currentNode.y = moveY;
-			this.updateBoard(moveX, moveY, BoardChunk.SNEK);
-			moveX = oldX;
-			moveY = oldY;
+			this.updateBoard(x, y, BoardChunk.SNEK);
+            // Move the next part of the snek to the position of the previous part
+			x = oldX;
+			y = oldY;
 			currentNode = currentNode.next;
 		}
-		this.updateBoard(moveX, moveY, BoardChunk.EMPTY);
+		this.updateBoard(x, y, BoardChunk.EMPTY);
 	}
 
 	spawnFood(): void {
@@ -164,7 +169,7 @@ class GameEngine {
 			this.height(),
 			this.width()
 		);
-		const nextChunk = this.board[nextPos.y][nextPos.x];
+		const nextChunk = this.board[nextPos.x][nextPos.y];
 		if (nextChunk === BoardChunk.SNEK) {
             console.info('Game over');
 			return 'GAME_OVER';

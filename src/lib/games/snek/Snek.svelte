@@ -46,4 +46,4 @@
 		{/each}
 	</div>
 {/if}
-<svelte:window on:keydown|preventDefault={onKeyDown} />
+<svelte:window on:keydown={onKeyDown} />
