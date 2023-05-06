@@ -18,7 +18,7 @@
 		<AppBar class="mb-8">
 			<svelte:fragment slot="lead">
 				<Avatar src="/lurian_logo.png" class="mr-4" />
-				<strong class="text-xl">lurian.dev</strong>
+				<strong class="text-xl">lurian.xyz</strong>
 			</svelte:fragment>
 			<svelte:fragment slot="default">
 				<NavBar />
