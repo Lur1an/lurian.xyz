@@ -70,7 +70,6 @@ class Snek {
 			this.tail = node;
 			return;
 		}
-		// @ts-ignore
 		this.tail.next = node;
 		this.tail = node;
         this.length++;
@@ -88,9 +87,10 @@ class GameEngine {
 	board: BoardChunk[][];
 	boardHooks: Writable<BoardChunk>[][];
 
-	constructor(height: number, width: number) {
+	constructor(height: number, width: number, hooks: Writable<BoardChunk>[][]) {
 		this.board = new Array(height);
 		this.boardHooks = new Array(height);
+        this.boardHooks = hooks;
 		for (let i = 0; i < height; i++) {
 			this.board[i] = new Array(width);
 			this.boardHooks[i] = new Array(width);
@@ -131,7 +131,6 @@ class GameEngine {
 		let currentNode: SnekNode | null = this.snek.head;
 		let oldX = currentNode.x;
 		let oldY = currentNode.y;
-        console.info(currentNode);
 		while (currentNode != null) {
 			currentNode.x = moveX;
 			currentNode.y = moveY;
@@ -144,9 +143,7 @@ class GameEngine {
 	}
 
 	spawnFood(): void {
-		const possibleChunks: Array<{ chunk: BoardChunk; x: number; y: number }> = new Array(
-			this.height() * this.width() - this.snek.length
-		);
+		const possibleChunks: Array<{ chunk: BoardChunk; x: number; y: number }> = [];
 		for (let x = 0; x < this.height(); x++) {
 			for (let y = 0; y < this.width(); y++) {
 				const chunk = this.board[x][y];
@@ -172,11 +169,11 @@ class GameEngine {
             console.info('Game over');
 			return 'GAME_OVER';
 		}
-		this.move(nextPos.x, nextPos.y);
 		if (nextChunk === BoardChunk.FOOD) {
 			this.addChunk();
             this.spawnFood();
 		}
+        this.move(nextPos.x, nextPos.y);
 		return 'OK';
 	}
 
@@ -195,6 +192,7 @@ class GameEngine {
 				);
 			}
 		);
+        console.info(possibleNewChunks)
 		const newChunk = possibleNewChunks[randomInt(possibleNewChunks.length)];
         console.info(newChunk)
 		this.snek.addNode(new SnekNode(newChunk.x, newChunk.y));
