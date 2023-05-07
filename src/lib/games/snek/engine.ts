@@ -105,7 +105,15 @@ class GameEngine {
 	}
 
 	setDirection(direction: Direction) {
-		console.info(`Updating direction to ${direction}`)
+        const nextSquare = adjacentCoords(
+            { x: this.snek.head.x, y: this.snek.head.y },
+            direction,
+            this.height(),
+            this.width()
+        )
+        if (this.board[nextSquare.x][nextSquare.y] === BoardChunk.SNEK) {
+            return;
+        }
 		this.direction = direction;
 	}
 
@@ -121,10 +129,6 @@ class GameEngine {
 
 	width(): number {
 		return this.board[0].length;
-	}
-
-	gameOver(): void {
-		console.info('Game over');
 	}
 
 	move(x: number, y: number): void {
@@ -159,7 +163,7 @@ class GameEngine {
 		this.updateBoard(chunk.x, chunk.y, BoardChunk.FOOD);
 	}
 
-	act(): 'GAME_OVER' | 'OK' {
+	tick(): 'GAME_OVER' | 'OK' {
 		const snekHead = this.snek.head;
 		const nextPos = adjacentCoords(
 			{ x: snekHead.x, y: snekHead.y },
@@ -169,7 +173,6 @@ class GameEngine {
 		);
 		const nextChunk = this.board[nextPos.x][nextPos.y];
 		if (nextChunk === BoardChunk.SNEK) {
-            console.info('Game over');
 			return 'GAME_OVER';
 		}
 		if (nextChunk === BoardChunk.FOOD) {

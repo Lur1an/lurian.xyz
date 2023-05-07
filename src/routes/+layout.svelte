@@ -5,14 +5,13 @@
 	// Most of your app wide CSS should be put in this file
 	import '../app.postcss';
 
-	import { AppShell, AppBar, LightSwitch, AppRailTile, Avatar } from '@skeletonlabs/skeleton';
+	import { AppShell, AppBar, LightSwitch, AppRailTile, Avatar, Modal } from '@skeletonlabs/skeleton';
 	import NavBar from '$lib/components/NavBar.svelte';
 	import Icon from 'svelte-awesome/components/Icon.svelte';
-	import { faCodeBranch } from '@fortawesome/free-solid-svg-icons';
 	import { faGithub } from '@fortawesome/free-brands-svg-icons';
 </script>
 
-<!-- App Shell -->
+<Modal/>
 <AppShell gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end">
 	<svelte:fragment slot="header">
 		<AppBar class="mb-8">

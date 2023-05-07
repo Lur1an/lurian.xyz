@@ -9,11 +9,11 @@
     function color(chunk: BoardChunk): string {
         switch (chunk) {
             case BoardChunk.EMPTY:
-                return "bg-gray-200";
+                return "variant-ghost-surface";
             case BoardChunk.SNEK:
-                return "bg-green-500";
+                return "bg-warning-500";
             case BoardChunk.FOOD:
-                return "bg-red-500";
+                return "bg-primary-500";
         }
     }
 

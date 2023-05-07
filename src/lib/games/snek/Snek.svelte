@@ -3,25 +3,43 @@
 	import { writable, type Writable } from 'svelte/store';
 	import SnekSquare from './SnekSquare.svelte';
 	import { onMount } from 'svelte';
+	import type { ModalSettings } from '@skeletonlabs/skeleton/dist/utilities/Modal/types';
+	import { modalStore } from '@skeletonlabs/skeleton';
 
 	let game: GameEngine;
 	let hooks: Writable<BoardChunk>[][];
 	function onKeyDown(event: KeyboardEvent) {
 		switch (event.key) {
 			case 'ArrowUp':
-				game.direction = Direction.UP;
+				game.setDirection(Direction.UP);
 				break;
 			case 'ArrowDown':
-				game.direction = Direction.DOWN;
+				game.setDirection(Direction.DOWN);
 				break;
 			case 'ArrowLeft':
-				game.direction = Direction.LEFT;
+				game.setDirection(Direction.LEFT);
 				break;
 			case 'ArrowRight':
-				game.direction = Direction.RIGHT;
+				game.setDirection(Direction.RIGHT);
 				break;
 		}
 	}
+    let gameInterval: NodeJS.Timer;
+
+    const gameOver = () => {
+        clearInterval(gameInterval);
+        console.info("GAME OVER");
+        const alert: ModalSettings = {
+            type: 'alert',
+            // Data
+            title: 'Game Over',
+            body: 'You lost!',
+            buttonTextCancel: 'Try Again!',
+            image: 'https://media3.giphy.com/media/JUSwkiO1Eh5K43ruN0/giphy.gif',
+        };
+        modalStore.trigger(alert);
+    }
+
 	onMount(() => {
         hooks = [];
 		for (let i = 0; i < 12; i++) {
@@ -31,9 +49,12 @@
 			}
 		}
 		game = new GameEngine(12, 12, hooks);
-		setInterval(() => {
-			game.act();
-		}, 100);
+		gameInterval = setInterval(() => {
+			const result = game.tick();
+            if (result === "GAME_OVER") {
+                gameOver();
+            }
+		}, 115);
 	});
 </script>
 
