@@ -1,8 +1,8 @@
 ---
 title: Sample post
 description: Trying stuff
-published: true
-headerImage: /favicon.png
+published: false
+headerImage: /default.jpg
 categories:
   - First
 date: 2023-02-10

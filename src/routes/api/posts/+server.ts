@@ -9,6 +9,7 @@ async function getPosts(searchParams: URLSearchParams) {
 		const slug = path.split('/').at(-1)?.replace('.md', '');
 		if (file && typeof file === 'object' && 'metadata' in file && slug) {
 			const metadata = file.metadata as Omit<Post, 'slug'>;
+            if (!metadata.published) continue;
 			const post = { ...metadata, slug };
 			post.date = formatDateString(post.date);
 			posts.push(post);

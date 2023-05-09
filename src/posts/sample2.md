@@ -1,10 +1,9 @@
 ---
-title: Sample post
-description: Trying stuff
+title: Sample Post
+description: Just to have something on this page.
 published: true
 categories:
-  - First
-  - Second
+  - Sample
 date: 2023-01-10
 ---
 
