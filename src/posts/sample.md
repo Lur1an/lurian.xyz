@@ -2,9 +2,9 @@
 title: Sample post
 description: Trying stuff
 published: true
+headerImage: /favicon.png
 categories:
   - First
-  - Second
 date: 2023-02-10
 ---
 

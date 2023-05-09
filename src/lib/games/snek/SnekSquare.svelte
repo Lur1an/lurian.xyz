@@ -4,7 +4,6 @@
 	import { BoardChunk } from "./engine";
 
     export let squareType: Writable<BoardChunk>;
-    export let styles: string;
 
     function color(chunk: BoardChunk): string {
         switch (chunk) {
@@ -17,9 +16,9 @@
         }
     }
 
-    $: squareStyle = styles + " " + color($squareType);
+    $: squareStyle = color($squareType);
 </script>
 
-<div class={squareStyle}>
+<div class={"aspect-square" + " " + squareStyle} >
 
 </div>

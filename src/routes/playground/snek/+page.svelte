@@ -3,6 +3,6 @@
 
 </script>
 
-<div class="container h-full mx-auto flex justify-center items-center">
+<div class="h-full w-full flex justify-center">
 	<Snek />
 </div>

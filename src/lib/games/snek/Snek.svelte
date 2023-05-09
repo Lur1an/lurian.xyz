@@ -59,12 +59,12 @@
 </script>
 
 {#if game !== undefined}
-	<div class="grid grid-cols-12 gap-3 h-[70%] w-[70%]">
+	<div class="aspect-square grid grid-cols-12 gap-3 w-[40%] h-[40%] mt-20">
 		{#each game.boardHooks as row}
 			{#each row as hook}
-				<SnekSquare squareType={hook} styles="h-full w-full" />
+				<SnekSquare squareType={hook} />
 			{/each}
 		{/each}
 	</div>
 {/if}
-<svelte:window on:keydown={onKeyDown} />
+<svelte:window on:keydown|preventdefault={onKeyDown} />

@@ -14,7 +14,7 @@
 <Modal/>
 <AppShell gridColumns="grid-cols-3" slotDefault="place-self-center" slotTrail="place-content-end">
 	<svelte:fragment slot="header">
-		<AppBar class="mb-8">
+		<AppBar>
 			<svelte:fragment slot="lead">
 				<Avatar src="/lurian_logo.png" class="mr-4" />
 				<strong class="text-xl">lurian.xyz</strong>
