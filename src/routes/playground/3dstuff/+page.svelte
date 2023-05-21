@@ -1,42 +1,72 @@
 <script>
-	import { Canvas, InteractiveObject, OrbitControls, T } from '@threlte/core'
-	import { spring } from 'svelte/motion'
-	import { degToRad } from 'three/src/math/MathUtils'
+	import { onMount, onDestroy } from 'svelte';
+	import * as THREE from 'three';
 
-	const scale = spring(1)
+	let container;
+	let camera, scene, renderer;
+	let geometry, material, mesh;
+
+	onMount(() => {
+		// Create the scene
+		scene = new THREE.Scene();
+
+		// Create the camera
+		camera = new THREE.PerspectiveCamera(
+			75,
+			container.clientWidth / container.clientHeight,
+			0.1,
+			1000
+		);
+		camera.position.z = 5;
+
+		// Create the object
+		geometry = new THREE.BoxGeometry(1, 1, 1);
+		material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+		mesh = new THREE.Mesh(geometry, material);
+		scene.add(mesh);
+
+		// Create the renderer
+		renderer = new THREE.WebGLRenderer({ antialias: true });
+		renderer.setSize(container.clientWidth, container.clientHeight);
+		container.appendChild(renderer.domElement);
+
+		// Animation loop
+		const animate = function () {
+			requestAnimationFrame(animate);
+			mesh.rotation.x += 0.01;
+			mesh.rotation.y += 0.02;
+			renderer.render(scene, camera);
+		};
+
+		animate();
+
+		return () => {
+			// Clean up on component destruction
+			renderer.dispose();
+			scene.dispose();
+			geometry.dispose();
+			material.dispose();
+		};
+	});
+
+	function resizeRenderer() {
+		const canvas = renderer.domElement;
+		const width = canvas.clientWidth;
+		const height = canvas.clientHeight;
+		const needResize = canvas.width !== width || canvas.height !== height;
+		if (needResize) {
+			renderer.setSize(width, height, false);
+		}
+		return needResize;
+	}
+
+	window.addEventListener('resize', () => {
+		if (resizeRenderer()) {
+			const canvas = renderer.domElement;
+			camera.aspect = canvas.clientWidth / canvas.clientHeight;
+			camera.updateProjectionMatrix();
+		}
+	});
 </script>
 
-<div class="h-full w-full">
-	<Canvas>
-		<T.PerspectiveCamera makeDefault position={[10, 10, 10]} fov={24}>
-			<OrbitControls maxPolarAngle={degToRad(80)} enableZoom={false} target={{ y: 0.5 }} />
-		</T.PerspectiveCamera>
-
-		<T.DirectionalLight castShadow position={[3, 10, 10]} />
-		<T.DirectionalLight position={[-3, 10, -10]} intensity={0.2} />
-		<T.AmbientLight intensity={0.2} />
-
-		<!-- Cube -->
-		<T.Group scale={$scale}>
-			<T.Mesh position.y={0.5} castShadow let:ref>
-				<!-- Add interaction -->
-				<InteractiveObject
-					object={ref}
-					interactive
-					on:pointerenter={() => ($scale = 2)}
-					on:pointerleave={() => ($scale = 1)}
-				/>
-
-				<T.BoxGeometry />
-				<T.MeshStandardMaterial color="#333333" />
-			</T.Mesh>
-		</T.Group>
-
-		<!-- Floor -->
-		<T.Mesh receiveShadow rotation.x={degToRad(-90)}>
-			<T.CircleGeometry args={[3, 30]} />
-			<T.MeshStandardMaterial color="pink" />
-		</T.Mesh>
-	</Canvas>
-</div>
-
+<div bind:this={container} class="w-full h-full" />

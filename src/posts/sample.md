@@ -1,11 +1,10 @@
 ---
-title: Sample post
-description: Trying stuff
-published: false
-headerImage: /default.jpg
+title: Sample Post
+description: Just to have something on this page.
+published: true
 categories:
-  - First
-date: 2023-02-10
+  - Sample
+date: 2023-01-10
 ---
 
 # Markdown

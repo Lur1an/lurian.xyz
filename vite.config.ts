@@ -4,7 +4,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
 	plugins: [sveltekit()],
 	ssr: {
-		noExternal: ['three', 'troika-three-text']
+		noExternal: ['three']
 	},
 	test: {
 		include: ['src/**/*.{test,spec}.{js,ts}']

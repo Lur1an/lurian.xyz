@@ -21,7 +21,7 @@
 
 <div class="container h-full mx-auto flex flex-col w-full mt-12 space-y-8">
 	<input
-		class="input"
+		class="input !border-warning-500 !border-opacity-50"
 		type="search"
 		name="autocomplete-search"
 		bind:value={searchParam}
