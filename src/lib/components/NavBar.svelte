@@ -7,7 +7,6 @@
 		{ href: '/blog', text: 'Blog', icon: faBook },
 		{ href: '/playground', text: 'Playground', icon: faGamepad },
 		{ href: '/memes', text: 'Memes', icon: faHippo },
-		{ href: '/about', text: 'About', icon: faLightbulb }
 	];
 
 	$: classesActive = (href: string) => {
