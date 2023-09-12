@@ -4,8 +4,9 @@
 	import SnekSquare from './SnekSquare.svelte';
 	import { onMount } from 'svelte';
 	import type { ModalSettings } from '@skeletonlabs/skeleton/dist/utilities/Modal/types';
-	import { modalStore } from '@skeletonlabs/skeleton';
+	import { getModalStore } from '@skeletonlabs/skeleton';
 
+    let modalStore = getModalStore();
 	let game: GameEngine;
 	let hooks: Writable<BoardChunk>[][];
 	function onKeyDown(event: KeyboardEvent) {

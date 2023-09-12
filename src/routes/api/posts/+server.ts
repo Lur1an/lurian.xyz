@@ -3,6 +3,7 @@ import { json } from '@sveltejs/kit';
 import { formatDateString } from '$lib/util';
 
 async function getPosts(searchParams: URLSearchParams) {
+    console.info('API: getPosts', searchParams)
 	let posts: Post[] = [];
 	const paths = import.meta.glob('/src/posts/*.md', { eager: true });
 	for (let [path, file] of Object.entries(paths)) {
@@ -17,7 +18,6 @@ async function getPosts(searchParams: URLSearchParams) {
 	}
 	posts.sort((d1, d2) => new Date(d2.date).getTime() - new Date(d1.date).getTime());
 	const category = searchParams.get('category');
-	console.info(category);
 	if (category) {
 		posts = posts.filter((post) => post.categories.includes(category));
 	}
